@@ -1,4 +1,7 @@
-### Hi there 👋
+### Hello, World! 👋
+My name is Jon, and I like to describe myself as an Analytical Innovator. I spend much of my time thinking about new applications for existing methods, new methods for existing applications, and existing methods for existing applications. The latter is my favorite. Just because something was created with a specific application in mind does not mean it the value that it brings ends there. Similarly, just because something "works" doesn't mean it isn't broken 😉
+
+Connect with me on [LinkedIn](https://www.linkedin.com/in/jonwayland/)
 
 <!--
 **JonWayland/JonWayland** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
