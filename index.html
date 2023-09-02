@@ -1,98 +1,96 @@
 <!DOCTYPE html>
-  <html lang="en">
-    <head>
-    <meta charset="UTF-8">
-      <title>Jon Wayland, MSc, MBA, Director of Data Science at Florida Blue</title>
-      <style>
-      /* Reset some default browser styles */
-      body, h1, h2, h3, p, ul {
-        margin: 0;
-        padding: 0;
-      }
-    
-    /* Add a background color and some padding around the whole page */
-      body {
-        background-color: #1a1a2e;
-          color: white;
-        font-family: Arial, sans-serif;
-        padding: 20px;
-      }
-    
-    /* Style header */
-      header {
-        background-color: #16213e;
-          padding: 10px;
-        text-align: center;
-      }
-    
-    /* Style sections */
-      section {
-        margin: 15px;
-        padding: 15px;
-        background-color: #0f3460;
-      }
-    
-    /* Style footer */
-      footer {
-        background-color: #16213e;
-          padding: 10px;
-        text-align: center;
-        margin-top: 15px;
-      }
-    
-    /* Add some additional styling to text and links */
-      a {
-        color: #f46036;
-          text-decoration: none;
-      }
-    </style>
-      </head>
-      <body>
-      <header>
-      <h1>Your Name</h1>
-      </header>
-      
-      <section id="about-me">
-        <h2>About Me</h2>
-        <p>
-        <!-- Add your text here -->
-        My name is Jon, and I love data! I'm a data science director for Florida Blue (Blue Cross Blue Shield of Florida). I have two amazing children with my beautiful wife, Kelly, and live in the sunny state of Florida! 
-      </p>
-        </section>
-        
-        <section id="linkedin">
-          <h2>LinkedIn</h2>
-          <p>
-          <a href="https://www.linkedin.com/in/JonWayland" target="_blank">My LinkedIn Profile</a>
-            </p>
-            </section>
-            
-            <section id="github">
-              <h2>GitHub</h2>
-              <p>
-              <a href="https://github.com/JonWayland" target="_blank">My GitHub Profile</a>
-                </p>
-                </section>
-                
-                <section id="contact">
-                  <h2>Contact Information</h2>
-                  <p>
-                  <!-- Add your text here -->
-                  You can reach me at: jonwayland47@gmail.com
-                </p>
-                  </section>
-                  
-                  <section id="portfolio">
-                    <h2>Portfolio</h2>
-                    <ul>
-                    <li><a href="path/to/rendered-R-markdown.html" target="_blank">Rendered R Markdown</a></li>
-                      <li><a href="path/to/file.pdf" target="_blank">PDF File</a></li>
-                        <li><a href="path/to/jupyter-notebook.html" target="_blank">Jupyter Notebook</a></li>
-                          </ul>
-                          </section>
-                          
-                          <footer>
-                          <p>&copy; 2023 Your Name. All rights reserved.</p>
-                          </footer>
-                          </body>
-                          </html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jon Wayland</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f0f0f0;  /* Light gray background */
+      color: #333;  /* Dark text */
+      line-height: 1.6;
+    }
+    header {
+      background: #16213e;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 20px;
+    }
+    section {
+      padding: 20px 0;
+    }
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    a {
+      color: #16213e;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    img {
+      max-width: 100%;
+    }
+    /* Additional Styles */
+    .profile-image {
+      width: 150px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Jon Wayland</h1>
+  </header>
+
+  <div class="container">
+    <section id="about-me">
+      <h2>About Me</h2>
+      <img src="https://media.licdn.com/dms/image/C4D03AQEL0NEu6mb5rA/profile-displayphoto-shrink_800_800/0/1624715637138?e=1698883200&v=beta&t=EZArcTFQCirb6yjFepOKf4G_MgimVILY7GbeOpU9i6k" alt="Jon Wayland" class="profile-image">
+      <p>Your description here.</p>
+    </section>
+
+    <section id="linkedin">
+      <h2>LinkedIn</h2>
+      <p><a href="https://www.linkedin.com/in/JonWayland/" target="_blank">My LinkedIn Profile</a></p>
+    </section>
+
+    <section id="github">
+      <h2>GitHub</h2>
+      <p><a href="https://github.com/JonWayland" target="_blank">My GitHub Profile</a></p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Information</h2>
+      <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+    </section>
+
+    <section id="portfolio">
+      <h2>Portfolio</h2>
+      <ul>
+        <li><a href="docs/JonWayland_Resume.pdf" target="_blank">My Resume</a></li>
+        <li><a href="path/to/rendered-R-markdown.html" target="_blank">Rendered R Markdown</a></li>
+        <li><a href="path/to/jupyter-notebook.html" target="_blank">Jupyter Notebook</a></li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>
+    <p style="text-align: center;">&copy; 2023 Jon Wayland. All rights reserved.</p>
+  </footer>
+</body>
+</html>
