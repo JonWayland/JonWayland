@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     * {
-      box-sizing: border-box;
+      box-sizing: border-box; 
       margin: 0;
       padding: 0;
     }
@@ -69,8 +69,38 @@
       text-decoration: underline;
     }
     img {
+      /*border-radius: 50%;*/
+    }
+    .img-round {
       border-radius: 50%;
     }
+    .contact-icon {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+/*    .project-block {
+/*      background-color: #f0f0f0; /* Same as page background */
+/*      border: 2px solid #333; /* Dark outline */
+/*      border-radius: 12px; /* Rounded corners */
+/*      text-align: center;
+/*      padding: 20px;
+/*      margin: 10px;
+/*      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for /*depth */
+/*    }*/
+
+    .footer {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        position: relative;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
   </style>
 </head>
 <body>
@@ -89,43 +119,44 @@
 
     <section id="about-me">
       <h2>About Me</h2>
-      <img src="https://media.licdn.com/dms/image/C4D03AQEL0NEu6mb5rA/profile-displayphoto-shrink_200_200/0/1624715637138?e=1698883200&v=beta&t=lnwkVpOuJ4s9flVYtH1PzgOJue4zc62sjNAOB8iLIbY" alt="Jon Wayland" width="150">
+      <img src="https://media.licdn.com/dms/image/C4D03AQEL0NEu6mb5rA/profile-displayphoto-shrink_200_200/0/1624715637138?e=1698883200&v=beta&t=lnwkVpOuJ4s9flVYtH1PzgOJue4zc62sjNAOB8iLIbY" alt="Jon Wayland" width="150" class="img-round">
+      
       <p>My name is Jon, and I love data. I'm the Director of Data Science at Florida Blue and I specialize in bridging data science solutions with business initiatives. I spend most of my work days collaborating with technical teams (i.e., my team) and various business functions. Over the course of my career, I've spent a lot of time thinking about how to best bring data clarity to decision-makers. <br><br> <b><a href="docs\JonWayland_Resume.pdf" target="_blank">Click here to view my Resume!</a></b> <br><br> I have two masters degrees - one in applied math and one in business. I obtained my first masters from Indiana University of PA in 2014 (applied math) and my second masters from the University of Illinois at Urbana-Champaign (business). I also have completed two multi-month certificates - one in machine learning engineering from Udacity and one in data science from HarvardX on edX. I obtained the Machine Learning Engineer Nanodegree in 2017, and the Professional Certificate in Data Science in 2019. <br><br>The best part about me is my family. I have a beautiful wife and two children, a daughter and a son. We live in the sunny state of Florida and enjoy occasional trips to Disney World and more frequent trips to the beach. <br><br> </p>
     </section>
-
     <section id="concepts">
       <h2>Data Concepts with Storytelling</h2>
       <p>A core aspect to my job as a data scientist is to explain data concepts in a way that resonates. More often than not, the audience for my descriptions come from a non-technical, non-mathematical background. As a result, I find myself using analogies and exercising storytelling to get points across. As most of this is done informally, I have also put together various stories over the years, some fictional and others realistic, to describe certain data concepts. <br><br><i>Note: Some of these stories were published on other platforms, including Quora and LinkedIn, but were all originally authored by Jon Wayland.</i><br><br></p>
-      <div style="width: 50%; float: left;">
+      <div class="project-block" style="width: 50%; float: left;">
         <br>
         <h3>Simpson's Paradox</h3>
-        <p><a href="path/to/rendered-R-markdown.html" target="_blank">Placeholder for Simpson's Paradox Story (coming soon)
-
+        <p><a href="path/to/rendered-R-markdown.html" target="_blank">
+        <img src="docs\simpson.png" alt="Tautological Bias Image" width="200">
+        <br>coming soon!<br>
         </a></p>
       </div>
-      <div style="width: 50%; float: left;">
+      <div class="project-block" style="width: 50%; float: left;">
         <br>
         <h3>Tautological Bias</h3>
-        <p><a href="path/to/jupyter-notebook.html" target="_blank">Placeholder for Tautological Bias Story (coming soon)</a></p>
+        <p><a href="path/to/jupyter-notebook.html" target="_blank">
+        <img src="docs\taut.png" alt="Tautological Bias Image" width="200">
+        <br>coming soon!<br>
+        <br>
+        </a></p>
       </div>
     </section>
     
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:jonwayland47@gmail.com">jonwayland47@gmail.com</a></p>
-    </section>
 
   </div>
 
-  <footer>
-    <p style="text-align: center;">&copy; 2023 Jon Wayland. All rights reserved.</p>
-  </footer>
+  <section>
+    <footer class="footer">
+      <div class="contact-icon">
+        <a href="mailto:jonwayland47@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+      <p>&copy; 2023 All rights reserved.</p>
+    </footer>
+  </section>
 
 </body>
 </html>
