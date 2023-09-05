@@ -1,9 +1,11 @@
 ---
 title: "Tautological Bias"
 author: "Jon Wayland"
-date: "2023-09-04"
+date: "9/4/2023"
 output: tufte::tufte_html
 ---
+
+*Note: I originally wrote this on Quora in 2019.*
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
