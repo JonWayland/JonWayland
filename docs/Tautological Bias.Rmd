@@ -151,7 +151,7 @@ The relationship between paid amounts and Decile tends to be quite linear. In fa
 
 After showing his mentor these results, Paul learns that the Decile field is actually built using the paid amounts — “Decile” represents the decile of costs that a patient belongs to.
 
-Paul remembers from his statistics class that this is a clear case of tautological bias, a form of “cheating” by means of using a different version of the outcome to predict itself.
+Paul remembers from his statistics class that this is a clear case of tautological bias, **a form of “cheating” by means of using a different version of the outcome to predict itself**.
 
 In this case, the paid amount and the “Decile” fields are more or less the same thing, and thus explains why using paid to predict “Decile” is cheating. Now that Paul realizes this, he retrains his model without the use of paid amounts.
 
