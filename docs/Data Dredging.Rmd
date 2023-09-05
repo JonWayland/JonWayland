@@ -1,0 +1,130 @@
+---
+title: "Data Dredging"
+author: "Jon Wayland"
+date: "9/5/2023"
+output: tufte::tufte_html
+---
+
+*Note: I originally wrote this on Quora in 2019.*
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Generating correlated data with mvrnorm() from the MASS library
+library(MASS)
+library(tidyverse)
+
+# Sample Means
+mu <- c(10,700)
+
+# Define our covariance matrix
+Sigma <- matrix(c(1,25,25,1155), nrow=2, ncol=2)
+
+# create both variables with 100 samples
+set.seed(9)
+vars <- mvrnorm(n=200, mu=mu, Sigma=Sigma)
+
+df <- data.frame(Index = vars[,1], ROI = vars[,2], Group = "Meets Assumptions")
+
+set.seed(9)
+df <- rbind(df,data.frame(
+  Index = rnorm(500, 10, 2),
+  ROI = rnorm(500, 700, 100),
+  Group = "Does Not Meet Assumptions"
+))
+```
+
+
+Imagine a marketing agency who, while trying to prove their business is worth it, asks an analyst (let’s call her Sasha) to “prove” their return on investment.
+
+The ask goes something like this:
+
+>I’d like to be able to say that there is a significant correlation between our involvement index and our client’s return on their investment so that we can attribute their success to us and not their other marketing affiliates.
+
+Assume *involvement index* is standardized across all marketing vendors, and that this broad yet specific request will be proven by simply determining the correlation between the index and ROI.
+
+Sasha begins by examining the relationship across all clients:
+
+```{r, warning=FALSE, message = FALSE,echo=FALSE}
+# All data
+df %>%
+  ggplot(aes(x = Index, y = ROI)) +
+  geom_point(size = 4, pch = 21, color = "black", alpha = 0.2, fill = "lightblue2")+
+  scale_y_continuous(name = "ROI\n(In the Thousands)", labels = scales::dollar)+
+  scale_x_continuous(name = "Involvement Index", breaks = seq(3,16,1))+
+  geom_smooth(method = 'lm', fill = "lightblue", color = "blue3")+
+  ggtitle(paste0("Correlation Coefficient: ",round(cor(df$Index,df$ROI),4)))+
+  theme_minimal()+
+  theme(plot.title = element_text(family = "serif",face = "bold", size = 18),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        axis.title.x = element_text(family = "serif",face = "bold", size = 14),
+        axis.title.y = element_text(family = "serif",face = "bold", size = 14),
+        legend.background = element_rect(colour = "black"),
+        legend.title = element_text(face = "bold"),
+        legend.position = c(0.25,0.6))
+```
+
+The data doesn’t suggest there is likely to be a relationship, let alone a positive one.
+
+In an **effort to please her leadership**, Sasha decides to start making some assumptions:
+
+* removes clients with less than one year of business
+* removes clients with more than 3.5 years of business
+* removes clients with market-share in Washington D.C.
+* removes clients in the automotive industry
+* removes clients using the marketing vendor with the largest market share
+* removes clients founded in 1979
+
+After applying these assumptions, Sasha revisits the relationship between ROI and Involvement Index:
+
+```{r, warning=FALSE, message = FALSE,echo=FALSE}
+# Assumptions Met
+df %>%
+  filter(Group == 'Meets Assumptions') %>%
+  ggplot(aes(x = Index, y = ROI)) +
+  geom_point(size = 4, pch = 21, color = "black", alpha = 0.2, fill = "lightblue2")+
+  scale_y_continuous(name = "ROI\n(In the Thousands)", labels = scales::dollar)+
+  scale_x_continuous(name = "Involvement Index", breaks = seq(3,16,1))+
+  geom_smooth(method = 'lm', fill = "lightblue", color = "blue3")+
+  ggtitle(paste0("Correlation Coefficient: ",round(cor(df$Index[df$Group == 'Meets Assumptions'],df$ROI[df$Group == 'Meets Assumptions']),4)))+
+  theme_minimal()+
+  theme(plot.title = element_text(family = "serif",face = "bold", size = 18),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        axis.title.x = element_text(family = "serif",face = "bold", size = 14),
+        axis.title.y = element_text(family = "serif",face = "bold", size = 14),
+        legend.background = element_rect(colour = "black"),
+        legend.title = element_text(face = "bold"),
+        legend.position = c(0.25,0.6))
+```
+
+This looks better. Much better. Sasha reports back to leadership and shows them the good news.
+
+The agency decides to give her a promotion, and proceeds to advertise their wonderful impact they have on their clients in order to win new business.
+
+The **effort to please her leadership** is where Sasha **committed the unethical act of data dredging**.
+
+Rather than proving or disproving a predefined hypothesis, Sasha first decided what her outcome was going to be and tampered with the data until it supported it.
+
+She made assumptions that had no statistical relevance in her analysis so that she could find the subset of clients who tell the positive story.
+
+```{r, warning=FALSE, message = FALSE,echo=FALSE}
+# Combined plot
+df %>%
+  ggplot(aes(x = Index, y = ROI, fill = Group)) +
+  geom_point(size = 4, pch = 21, color = "black", alpha = 0.25)+
+  scale_fill_manual(values = c("white", "blue2"))+
+  scale_x_continuous(name = "Involvement Index", breaks = seq(3,16,1)) +
+  scale_y_continuous(name = "ROI in Thousands", labels = scales::dollar)+
+  theme_minimal()+
+  theme(plot.title = element_text(family = "serif",face = "bold", size = 18),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12),
+        axis.title.x = element_text(family = "serif",face = "bold", size = 14),
+        axis.title.y = element_text(family = "serif",face = "bold", size = 14),
+        legend.background = element_rect(colour = "black"),
+        legend.text = element_text(family = "serif",face = "bold", size = 12),
+        legend.title = element_blank(),
+        legend.position = c(0.2,0.8))
+```
