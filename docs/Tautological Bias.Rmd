@@ -1,0 +1,194 @@
+---
+title: "Tautological Bias"
+author: "Jon Wayland"
+date: "2023-09-04"
+output: tufte::tufte_html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+ 
+# Fake Healthcare
+dat <- read.csv("https://raw.githubusercontent.com/JonWayland/Fake-Healthcare/master/HP-Universal_DF.csv")
+ 
+# Creating the Decile field
+dat <- dat %>%
+  arrange(HP_Paid) %>%
+  mutate(cum_per = cumsum(HP_Paid)/sum(dat$HP_Paid),
+         act_per = HP_Paid/sum(dat$HP_Paid)) %>%
+  mutate(Decile = case_when(
+    cum_per <= 0.1 ~ 1,
+    cum_per <= 0.2 & cum_per > 0.1 ~ 2,
+    cum_per <= 0.3 & cum_per > 0.2 ~ 3,
+    cum_per <= 0.4 & cum_per > 0.3 ~ 4,
+    cum_per <= 0.5 & cum_per > 0.4 ~ 5,
+    cum_per <= 0.6 & cum_per > 0.5 ~ 6,
+    cum_per <= 0.7 & cum_per > 0.6 ~ 7,
+    cum_per <= 0.8 & cum_per > 0.7 ~ 8,
+    cum_per <= 0.9 & cum_per > 0.8 ~ 9,
+    TRUE ~ 10
+  )) %>%
+  mutate(Decile = as.factor(Decile))
+ 
+# Splitting the data
+library(caret)
+trainIndex <- createDataPartition(dat$Decile, p = .8,
+                                  list = FALSE,
+                                  times = 1)
+ 
+train <- dat[ trainIndex,]
+test  <- dat[-trainIndex,]
+ 
+summary(train$Decile)
+summary(test$Decile)
+ 
+
+ 
+```
+
+Paul, being a fresh statistics graduate, is dying to finally apply a machine learning model in practice. He is hired at a healthcare company and his first task as a working professional is to classify which “Decile” a given patient belongs to.
+
+Rather than researching the context of what a “Decile” is, Paul decides to stay strictly within his area of expertise: **data**.
+
+Because he doesn’t want to bias his prediction in anyway, Paul designates 80% of the data for training and 20% for testing. He then sets the testing data aside so no information from it is leaked in while building his model on the training data.
+
+Moving forward, everything Paul does will be on the training data with the exception of his final prediction using his first professional ML model.
+
+To get started, Paul decides it would be a good idea to visualize his outcome variable:
+
+```{r, warning=FALSE, echo=FALSE}
+# Looking at the outcome
+train %>%
+  group_by(Decile) %>%
+  summarize(N = n()) %>%
+  ggplot(aes(x = Decile, y = N))+
+  geom_bar(stat = "Identity", color = "black", fill = "red4") +
+  scale_y_continuous(name = "Total Number of Patients", labels = scales::comma)+
+  ggtitle("Distribution of the Decile Field")+
+  geom_text(aes(label = scales::percent(N/nrow(train))), nudge_y = 150)+
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+He recognizes the unbalanced nature of his data, but has been told to report accuracy specifically and thus disregards other metrics he feels may be more suitable.
+
+Paul also decides to look through all of the variables he has available to him, and decides that he wants to use the following predictors:
+
+* Age
+* Gender
+* Count of Chronic Conditions
+* Count of Risks
+* Count of ER Visits
+* Count of Inpatient Visits
+* Total $ Paid by the Health Plan
+
+Using these predictors, Paul finally builds his final model using an ensemble decision tree method called random forest.
+
+He makes his predictions on the test data and is finally ready to assess its performance. To aid in his anticipation, Paul decides he would first like to visualize the performance with a heat map of the confusion matrix. A perfect accuracy would depict a diagonal line.
+
+```{r, warning=FALSE, message = FALSE,echo=FALSE}
+# Fitting basic random forest model
+library(randomForest)
+fit <- randomForest(Decile ~ Age + Gender + CC_Count + Risk_Count + ER_Count + IP_Visits + HP_Paid,
+                    mtry = 3,
+                    ntree = 150,
+                    data = train)
+ 
+# Making predictions on the test set
+test$pred <- predict(fit, newdata = test)
+ 
+# Assessing the performance
+perf <- confusionMatrix(test$pred, test$Decile)
+ 
+# Formatting the confusion matrix data
+df_conf <- rbind(
+  data.frame(Reference = 1, Value = perf$table[,1], Prediction = seq(1,10)),
+  data.frame(Reference = 2, Value = perf$table[,2], Prediction = seq(1,10)),
+  data.frame(Reference = 3, Value = perf$table[,3], Prediction = seq(1,10)),
+  data.frame(Reference = 4, Value = perf$table[,4], Prediction = seq(1,10)),
+  data.frame(Reference = 5, Value = perf$table[,5], Prediction = seq(1,10)),
+  data.frame(Reference = 6, Value = perf$table[,6], Prediction = seq(1,10)),
+  data.frame(Reference = 7, Value = perf$table[,7], Prediction = seq(1,10)),
+  data.frame(Reference = 8, Value = perf$table[,8], Prediction = seq(1,10)),
+  data.frame(Reference = 9, Value = perf$table[,9], Prediction = seq(1,10)),
+  data.frame(Reference = 10, Value = perf$table[,10], Prediction = seq(1,10))
+)
+ 
+# Plotting the confusion matrix
+df_conf %>%
+  ggplot(aes(x = as.factor(Reference), y = as.factor(Prediction), fill = Value))+
+  geom_tile()+
+  scale_x_discrete(name = "Actual Decile")+
+  scale_y_discrete(name = "Predicted Decile")+
+  scale_fill_gradient2(name = "Total Patients", low="white", high="red", labels = scales::comma)+
+  theme_bw()
+```
+
+Paul scratches his head in confusion when he looks at his confusion matrix (no pun intended).
+
+He takes a look at the overall accuracy. 99.9%
+
+Impossible. This is as close to perfect as perfect gets.
+
+Paul consults his mentor, a seasoned data scientist at his company. His mentor laughs and tells him he should look at the relationship between all of his predictor variables and his outcome.
+
+Paul does as suggested and notices something he should have caught before.
+
+```{r, warning=FALSE, echo=FALSE}
+# Plotting the decile by the paid amounts
+train %>%
+  ggplot(aes(Decile, HP_Paid))+
+  geom_point(size = 2, alpha = 0.7, fill = "lightgreen", pch = 21)+
+  scale_y_continuous(name = "Total Paid", labels = scales::dollar)+
+  theme_bw()
+```
+
+The relationship between paid amounts and Decile tends to be quite linear. In fact, the correlation between the two is 0.8396, a strongly positive relationship as well as a giant red flag.
+
+After showing his mentor these results, Paul learns that the Decile field is actually built using the paid amounts — “Decile” represents the decile of costs that a patient belongs to.
+
+Paul remembers from his statistics class that this is a clear case of tautological bias, a form of “cheating” by means of using a different version of the outcome to predict itself.
+
+In this case, the paid amount and the “Decile” fields are more or less the same thing, and thus explains why using paid to predict “Decile” is cheating. Now that Paul realizes this, he retrains his model without the use of paid amounts.
+
+```{r, warning=FALSE, echo=FALSE}
+
+# Re-training without paid
+fit <- randomForest(Decile ~ Age + Gender + CC_Count + Risk_Count + ER_Count + IP_Visits,
+                    mtry = 3,
+                    ntree = 150,
+                    data = train)
+ 
+# Making the new predictions
+test$pred <- predict(fit, newdata = test)
+ 
+# Getting the performance of the predictions
+perf <- confusionMatrix(test$pred, test$Decile)
+ 
+# Formatting the confusion matrix data
+df_conf <- rbind(
+  data.frame(Reference = 1, Value = perf$table[,1], Prediction = seq(1,10)),
+ data.frame(Reference = 2, Value = perf$table[,2], Prediction = seq(1,10)),
+  data.frame(Reference = 3, Value = perf$table[,3], Prediction = seq(1,10)),
+  data.frame(Reference = 4, Value = perf$table[,4], Prediction = seq(1,10)),
+  data.frame(Reference = 5, Value = perf$table[,5], Prediction = seq(1,10)),
+  data.frame(Reference = 6, Value = perf$table[,6], Prediction = seq(1,10)),
+  data.frame(Reference = 7, Value = perf$table[,7], Prediction = seq(1,10)),
+  data.frame(Reference = 8, Value = perf$table[,8], Prediction = seq(1,10)),
+  data.frame(Reference = 9, Value = perf$table[,9], Prediction = seq(1,10)),
+  data.frame(Reference = 10, Value = perf$table[,10], Prediction = seq(1,10))
+)
+ 
+# Plotting the confusion matrix
+df_conf %>%
+  ggplot(aes(x = as.factor(Reference), y = as.factor(Prediction), fill = Value))+
+  geom_tile()+
+  scale_x_discrete(name = "Actual Decile")+
+  scale_y_discrete(name = "Predicted Decile")+
+  scale_fill_gradient2(name = "Total Patients", low="white", high="red", labels = scales::comma)+
+  theme_bw()
+```
+
+**50% Overall Accuracy**. Doesn’t look so good after all.

@@ -1,0 +1,114 @@
+---
+title: "Simpson's Paradox"
+author: "Jon Wayland"
+date: "2023-09-04"
+output: tufte::tufte_html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load the tidyverse 
+library(tidyverse) 
+ 
+# Generating correlated data with mvrnorm() from the MASS library 
+library(MASS) 
+ 
+# Sample Means 
+mu <- c(20,4) 
+ 
+# Define our covariance matrix, and specify the covariance relationship (i.e. 0.7 in this case) 
+Sigma <- matrix(.7, nrow=2, ncol=2) + diag(2)*.3 
+ 
+# create both variables with 100 samples 
+vars <- mvrnorm(n=100, mu=mu, Sigma=Sigma) 
+ 
+# Create a function for generating 2 correlated variables given variable means 
+corVars<-function(m1,m2,confVar){ 
+  mu <- c(m1,m2) 
+  Sigma <- matrix(.7, nrow=2, ncol=2) + diag(2)*.5 
+  vars <- mvrnorm(n=100, mu=mu, Sigma=Sigma) 
+  Var1<-vars[,1] 
+  Var2<-vars[,2] 
+  df<-as.data.frame(cbind(Var1 = Var1,Var2 = Var2,Var3 = confVar)) 
+  df$Var1<-as.numeric(as.character(df$Var1)) 
+  df$Var2<-as.numeric(as.character(df$Var2)) 
+  df 
+} 
+ 
+# Re-running for multiple sets and combining into a single dataframe df 
+d1 <- corVars(m1 = 20, m2 = 82, confVar = "Algebra") 
+d2 <- corVars(m1 = 18, m2 = 84, confVar = "English") 
+d3 <- corVars(m1 = 16, m2 = 86, confVar = "Social Studies") 
+d4 <- corVars(m1 = 14, m2 = 88, confVar = "Art") 
+d5 <- corVars(m1 = 12, m2 = 90, confVar = "Physical Education") 
+ 
+# Create the aggregate data 
+df<-rbind(d1,d2,d3,d4,d5) 
+```
+
+During a faculty meeting, a group of 9th grade teachers decided they needed to further understand what the optimal duration of study is for students to achieve satisfactory results. So, they decided to gather the approximate number of hours students were studying, and then compare to the student’s test scores.
+
+Mr. Simpson convinced the faculty that more data means better results, and so all of the teachers integrated their cross-course data for the analysis.
+
+The results were astounding. To everyone’s confusion, the less a student studied, the higher they tend to score on tests.
+
+```{r, warning=FALSE, echo=FALSE}
+# Grade & Study Time Plot 
+df %>% 
+  ggplot(aes(x = Var1, y = Var2/100)) + 
+  geom_jitter(aes(size = 13), alpha = 0.55, shape = 21, fill = "darkgray", color = "black") + 
+  scale_y_continuous(name = "Final Percentage", labels = scales::percent)+ 
+  scale_x_continuous(name = "Approximate Hours for Preparation")+ 
+  guides(size = FALSE) + 
+  ggtitle("Impact of Studying on Final Grades")+ 
+  theme(plot.title = element_text(hjust = 0.5))+ 
+  theme_bw() 
+```
+
+
+In fact, the coefficient associated with this correlation was -0.7981, a strongly negative relationship.
+
+Should they be encouraging their students to study less? How in the world could data be backing up such a claim? Surely something was missing.
+
+After discussing the results, the teachers agreed they should consult the school’s statistician, Mrs. Paradox. After Mr. Simpson explained to Mrs. Paradox what they had found in their results, Mrs. Paradox suggested they analyze each course’s data individually.
+
+So, they went ahead and analyzed Phys. Ed. and proceeded to have their minds blown.
+
+```{r, warning=FALSE, echo=FALSE}
+# PhysEd Plot 
+df %>%  
+  filter(Var3 == 'Physical Education') %>% 
+  ggplot(aes(x = Var1, y = Var2/100)) + 
+  geom_jitter(aes(size = 13), alpha = 0.55, shape = 21, fill = "darkgray", color = "black") + 
+  scale_y_continuous(name = "Final Percentage", labels = scales::percent)+ 
+  scale_x_continuous(name = "Approximate Hours for Preparation")+ 
+  guides(size = FALSE) + 
+  ggtitle("Impact of Studying on Final Grades (Physical Education Only)")+ 
+  theme(plot.title = element_text(hjust = 0.5))+ 
+  theme_bw() 
+```
+
+A correlation of 0.6353! How in the statistical universe was this even possible?
+
+Mrs. Paradox then explained this as Simpson’s Paradox, **a statistical phenomenon where a seemingly strong relationship reverses or disappears when introduced to a third confounding variable.**
+
+She convinced Mr. Simpson to plot all of the data once again, but then color-code each course separately to distinguish them from one another.
+
+```{r, warning=FALSE, echo=FALSE}
+# Confounding plot 
+df %>% 
+  ggplot(aes(x = Var1, y = Var2/100)) + 
+  geom_jitter(aes(size = 1, fill = Var3), alpha = 0.25, shape = 21) + 
+  guides(fill = guide_legend(title = "Course Class", override.aes = list(size = 5)), 
+         size = FALSE) + 
+  scale_y_continuous(name = "Testing Results", labels = scales::percent)+ 
+  scale_x_continuous(name = "Approximate Hours for Preparation")+ 
+  ggtitle("Impact of Studying on Final Grades")+ 
+  theme(plot.title = element_text(hjust = 0.5))+ 
+  theme_bw() 
+```
+
+After doing so, Mr. Simpson and the 9th grade faculty concluded that the relationship was indeed positive, and that the more hours a student studied, the higher the grade tends to be.
+
+Including the course of study in the analysis completely reversed the relationship.
