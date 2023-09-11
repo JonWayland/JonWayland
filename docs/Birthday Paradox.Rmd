@@ -1,0 +1,77 @@
+---
+title: "Birthday Paradox"
+author: "Jon Wayland"
+date: "9/9/2023"
+output: tufte::tufte_html
+---
+
+*Note: I originally wrote this on Quora in 2019.*
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+bpf <- function(n){
+  k <- n * (n-1) / 2
+  return(1 - (364/365) ^ k)
+}
+res <- sapply(seq(1,60,1), bpf)
+bp_dfr <- data.frame(ppl = seq(1,60,1), prob = res)
+```
+
+My wife has 9 siblings, and believe it or not, she shares the same birthday as one of her brothers.
+
+When people hear this, they’re shocked because they believe the chances of this happening are slim-to-none. Though probability does favor this *not* happening, the chances are still much greater than most people think.
+
+```{r, warning=FALSE, message = FALSE,echo=FALSE}
+bp_dfr %>% 
+  ggplot(aes(x = ppl, y = prob))+
+  geom_point(color = "lightblue", alpha = 0.7, size = 3)+
+  scale_x_continuous(name = "Number of People", breaks = seq(0,60,5))+
+  scale_y_continuous(name = "Probability", labels = scales::percent)+
+  ggtitle("Probability of 2 People Having the Same Birthday") +
+  geom_smooth()+
+  theme_bw()
+```
+With 10 people, the probability of any two of them having the same birthday is 11.6%. Again, not in favor of happening, but certainly greater than slim-to-none.
+
+## Why is the probability so high?
+
+The "paradox" comes into play because of our perception of the problem. We fixate on a single person, and then assume the likelihood that they alone share the same birthday as someone else.
+
+Instead, we can think of it as every possible pairing of 2 people. For my wife and her 9 siblings, there are 45 possible pairs of 2 people. That’s 45 combinations of 10 distinct birthdays looking for a match.
+
+The distinct pairings of $n$ people can be represented by $\frac{n∗(n−1)}{2}$. For a single pairing, there is a $\frac{1}{365}$ chance that the two people share the same birthday, which we will see why in a moment.
+
+For $k$ pairings, there is a $1−\frac{364}{365}^k$, or  $1−\frac{364}{365}^\frac{n∗(n−1)}{2}$ (in terms of $n$ people) chance that any two people share the same birthday.
+
+## Probability Formula
+
+I find it easiest to understand by beginning with the most intuitive case, a single pairing, $n=2$.
+
+Substituting $2$ for $n$, we get $1−\frac{364}{365}^\frac{2∗(2−1)}{2} = 1−\frac{364}{365}^1=\frac{1}{365}$. In other words, the chances of two out of two people having the same birthday are 1 in 365 days. Makes sense.
+
+Now that we trust the formula, let’s break down the probability of any $2$ out of $n$ people having the same birthday: $1−\frac{364}{365}^\frac{n∗(n−1)}{2}$
+
+First, we can remove the "$1−$" from the formula and interpret the remaining portion as the probability of any pair of people **not** having the same birthday. So, we’re left with $\frac{364}{365}^\frac{n∗(n−1)}{2}$.
+ 
+
+Extending $n$ to be $3$ or more people, the power that $\frac{364}{365}$ is raised to grows exponentially:
+
+* $1$ in the $n=2$ case
+* $3$ in the $n=3$ case
+* $6$ in the $n=4$ case
+* $10$ in the $n=5$ case
+* $15$ in the $n=6$ case
+* $21$ in the $n=7$ case
+* $28$ in the $n=8$ case
+* $36$ in the $n=9$ case
+* $45$ in the $n=10$ case
+
+As $\frac{n∗(n−1)}{2}$ grows, the base fraction $\frac{364}{365}$ shrinks. So, the value being subtracted from $1$ gets smaller and smaller (quite quickly) as $n$ increases.
+
+So with my wife and her $9$ siblings, i.e. the $n=10$ case, the power is $45$. Plug this in to the formula and the probability of any two of them having the same birthday is: $1−\frac{364}{365}^\frac{n∗(n−1)}{2}=1−\frac{364}{365}^{45}=0.1161$
+ 
+
+Increase $n$ to $23$ people and the probability that any two people share the same birthday becomes 50–50 (try it out). The probability surpasses 80% with only 35 people.To go full circle, think of it in terms of pairs: with 23 people, we have 253 possible combinations searching for a match. With 35 people, we have 595 possible combinations searching for a match.
+
+Doesn’t sound slim-to-none after all.
