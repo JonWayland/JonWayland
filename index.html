@@ -100,13 +100,31 @@
         margin-right: auto;
     }
     
+    .parallax {
+      /* Create the parallax effect */
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+    /* Create a container for the text to position it */
+    .text-container {
+      position: center;
+      top: 40vh;
+      text-align: center;
+      color: white;
+    }
+    
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Jon Wayland</h1>
-    <p>This is my code / no-code website! <br> Custom HTML & CSS primarily written by ChatGPT </p>
+  <header class="parallax">
+    <div class="text-container">
+      <h1>Jon Wayland</h1>
+      <p>This is my code / no-code website! <br> Custom HTML & CSS primarily written by ChatGPT </p>
+    </div>
     <nav>
       <a href="#about-me"><i class="fas fa-user fa-2x"></i></a>
       <a href="#concepts"><i class="fas fa-book fa-2x"></i></a>
