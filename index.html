@@ -19,7 +19,7 @@
       font-size: 24px; /* Increased base font size */
     }
     header {
-      background: url('images/banner.jpg') no-repeat center center;
+      background: url('images/tropical.png') no-repeat center center;
       background-size: cover;
       height: 100vh;
       color: white;
@@ -64,6 +64,9 @@
     a {
       color: #16213e;
       text-decoration: none;
+      margin: 0;
+      padding: 0;
+      display: inline-block; /* This ensures the anchor behaves like a block but only takes up as much space as necessary */
     }
     a:hover {
       text-decoration: underline;
@@ -73,6 +76,10 @@
     }
     .img-round {
       border-radius: 50%;
+    }
+    .presentation-description {
+      font-size: 18px; /* Adjust this value as needed */
+    /* You can add more styling here if needed */
     }
     .contact-icon {
         display: block;
@@ -124,10 +131,12 @@
     <div class="text-container">
       <h1>Jon Wayland</h1>
       <p>This is my code / no-code website! <br> Custom HTML & CSS primarily written by ChatGPT </p>
+      
     </div>
     <nav>
       <a href="#about-me"><i class="fas fa-user fa-2x"></i></a>
       <a href="#concepts"><i class="fas fa-book fa-2x"></i></a>
+      <a href="#presentations" title="Presentations"><i class="fa-solid fa-file-powerpoint fa-2x"></i></a>
       <a href="https://www.linkedin.com/in/JonWayland/" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
       <a href="https://github.com/JonWayland" target="_blank"><i class="fab fa-github fa-2x"></i></a>
       <a href="https://twitter.com/JonnWa7" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
@@ -143,6 +152,31 @@
       
       <p>My name is Jon, and I love data. I'm the Director of Data Science at Florida Blue and I specialize in bridging data science solutions with business initiatives. I spend most of my work days collaborating with technical teams (i.e., my team) and various business functions. Over the course of my career, I've spent a lot of time thinking about how to best bring data clarity to decision-makers. <br><br> <b><a href="docs\JonWayland_Resume.pdf" target="_blank">Click here to view my Resume!</a></b> <br><br> I have two masters degrees - one in applied math and one in business. I obtained my first masters from Indiana University of PA in 2014 (applied math) and my second masters from the University of Illinois at Urbana-Champaign (business). I also have completed two multi-month certificates - one in machine learning engineering from Udacity in 2017 and one in data science from HarvardX on edX in 2019. <br><br>The best part about me is my family. I have a beautiful wife and two children, a daughter and a son. We live in the sunny state of Florida and enjoy occasional trips to Disney World and more frequent trips to the beach. <br><br> </p>
     </section>
+    
+    
+<!-- Presentations Section -->
+<section id="presentations">
+  <h2>Presentations</h2>
+  <p>Presenting complex topics to audiences of varied backgrounds has evolved into one of the more common job functions required of me. As a result, I have had the opportunity to speak in front of large audiences ranging from 50 to 300 people. While most of my presentations contain far too proprietary of infromation to share, I have had the benefit of putting together some that can be external facing. This section is dedicated to sharing those I am able to share.</p> <br>
+  <div class="project-container">
+    <div class="project-block">
+      <p><b>Caring with Algorithms</b></p>
+      <a href="docs/Caring-with-Algorithms.pdf" target="_blank">
+        <img src="images/cwa.png" alt="Caring with Algorithms" width="500" style="display: block;">
+      </a>
+      <p class="presentation-description" style="width: 700px;"> <i>Caring with Algorithms</i> is a presentation that I gave to a local meetup focused on artificial intelligence called AI Connect. The target audience in this forum sat more on the technical side allowing for a bit more detail in some of the slides.</p>
+    </div>
+    <div class="project-block">
+      <p><b>Amplifying Real Intelligence with AI</b></p>
+      <a href="docs/AI-Amplify.pdf" target="_blank">
+        <img src="images/aia.png" alt="Amplifying Real Intelligence with AI" width="500" style="display: block;">
+      </a>
+      <p class="presentation-description" style="width: 700px;"> <i>Amplifying Real Intelligence with AI</i> is a presentation that I gave to the Analytics, Finance, and Actuarial departments of Florida Blue during an onsite all employee event. All proprietary information was retracted from the version I am sharing here.</p>
+    </div>
+  </div>
+  <br>
+</section>
+
     
     <section id="concepts">
       <h2>Statistical Storytelling</h2>
