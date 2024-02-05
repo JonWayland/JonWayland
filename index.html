@@ -123,25 +123,83 @@
       color: white;
     }
     
+    .contact-links {
+      display: flex;
+      justify-content: center; /* Centers the links horizontally */
+      margin-top: 20px; /* Adds some space above the links */
+    }
+    
+    .contact-links a {
+      margin: 0 10px; /* Adds spacing between each link */
+      color: lightblue;
+    }
+    
+/* CSS for Top Right Nav Bar */
+    
+    header nav {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0); /* Semi-transparent background */
+      border-radius: 5px;
+    }
+    
+    header nav a {
+      margin: 0 10px;
+      color: white;
+      text-decoration: none;
+    }
+    
+    header nav a:hover {
+      color: #f0f0f0;
+      text-decoration: underline;
+    }
+    
+    header nav .fas {
+      font-size: 1.5em;
+    }
+    
+    header nav input[type="text"] {
+      font-size: 16px;
+      padding: 5px;
+      margin-left: 10px;
+      border: none;
+      border-radius: 3px;
+    }
+    
   </style>
 </head>
 <body>
 
+<!-- ------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------ -->
+
   <header class="parallax">
+    
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#about-me">About Me</a>
+      <a href="#presentations">Presentations</a>
+      <a href="#concepts">Storytelling</a>
+      <!--<a href="consulting.html">Consulting</a> -->
+      <!--<a href="blog.html">Blog</a> -->
+      <a href="javascript:void(0);" onclick="toggleSearch()"><i class="fas fa-search"></i></a>
+    </nav>
+    
     <div class="text-container">
       <h1>Jon Wayland</h1>
       <p>This is my code / no-code website! <br> Custom HTML & CSS primarily written by ChatGPT </p>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/JonWayland/" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+        <a href="https://github.com/JonWayland" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+        <a href="https://twitter.com/JonnWa7" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
+        <a href="mailto:jonwayland47@gmail.com"><i class="fas fa-envelope fa-2x"></i></a>
+      </div>
       
     </div>
-    <nav>
-      <a href="#about-me"><i class="fas fa-user fa-2x"></i></a>
-      <a href="#concepts"><i class="fas fa-book fa-2x"></i></a>
-      <a href="#presentations" title="Presentations"><i class="fa-solid fa-file-powerpoint fa-2x"></i></a>
-      <a href="https://www.linkedin.com/in/JonWayland/" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
-      <a href="https://github.com/JonWayland" target="_blank"><i class="fab fa-github fa-2x"></i></a>
-      <a href="https://twitter.com/JonnWa7" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
-      <a href="mailto:jonwayland47@gmail.com"><i class="fas fa-envelope fa-2x"></i></a>
-    </nav>
+    
   </header>
 
   <div class="container">
@@ -237,6 +295,18 @@
       <p>&copy; 2023 All rights reserved.</p>
     </footer>
   </section>
+
+
+<script>
+  function toggleSearch() {
+    var searchInput = document.getElementById('searchInput');
+    if (searchInput.style.display === 'none') {
+      searchInput.style.display = 'block';
+    } else {
+      searchInput.style.display = 'none';
+    }
+  }
+</script>
 
 </body>
 </html>
