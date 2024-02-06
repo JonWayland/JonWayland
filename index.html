@@ -195,7 +195,8 @@
       <a href="#concepts">Storytelling</a>
       <!--<a href="consulting.html">Consulting</a> -->
       <!--<a href="blog.html">Blog</a> -->
-      <a href="javascript:void(0);" onclick="toggleSearch()"><i class="fas fa-search"></i></a>
+      <!--<a href="javascript:void(0);" onclick="toggleSearch()"><i class="fas fa-search"></i></a>-->
+      <input type="text" id="searchInput" placeholder="Search...">
     </nav>
     
     <div class="text-container">
@@ -221,9 +222,8 @@
       <p>My name is Jon, and I love data. I'm the Director of Data Science at Florida Blue and I specialize in bridging data science solutions with business initiatives. I spend most of my work days collaborating with technical teams (i.e., my team) and various business functions. Over the course of my career, I've spent a lot of time thinking about how to best bring data clarity to decision-makers. <br><br> <b><a href="docs\JonWayland_Resume.pdf" target="_blank">Click here to view my Resume!</a></b> <br><br> I have two masters degrees - one in applied math and one in business. I obtained my first masters from Indiana University of PA in 2014 (applied math) and my second masters from the University of Illinois at Urbana-Champaign (business). I also have completed two multi-month certificates - one in machine learning engineering from Udacity in 2017 and one in data science from HarvardX on edX in 2019. <br><br>The best part about me is my family and my faith. I have a beautiful wife and two children, a daughter and a son. We live in the sunny state of Florida, enjoy occasional trips to Disney World, more frequent trips to the beach, and daily rosary walks.<br><br> </p>
     </section>
     
-    
 <!-- Presentations Section -->
-<section id="presentations">
+<section id="presentations" data-search="presentations decks slides pdf">
   <h2>Presentations</h2>
   <p>Presenting complex topics to audiences of varied backgrounds has evolved into one of the more common job functions required of me. As a result, I have had the opportunity to speak in front of large audiences ranging from 50 to 300 people. While most of my presentations contain far too proprietary of infromation to share, I have had the benefit of putting together some that can be external facing. This section is dedicated to sharing those I am able to share.</p> <br>
   <div class="project-container">
@@ -244,7 +244,6 @@
   </div>
   <br>
 </section>
-
     
     <section id="concepts">
       <h2>Statistical Storytelling</h2>
@@ -307,16 +306,7 @@
   </section>
 
 
-<script>
-  function toggleSearch() {
-    var searchInput = document.getElementById('searchInput');
-    if (searchInput.style.display === 'none') {
-      searchInput.style.display = 'block';
-    } else {
-      searchInput.style.display = 'none';
-    }
-  }
-</script>
+<script src="js/script.js"></script>
 
 </body>
 </html>
