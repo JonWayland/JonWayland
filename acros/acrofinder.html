@@ -25,19 +25,18 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 50vh; /* Adjust this value to move the search bar up or down */
+      height: 50vh;
     }
     #searchBar {
       padding: 10px;
       font-size: 16px;
-      width: 50%; /* Adjust width of the search bar */
-      margin-bottom: 20px; /* Space between search bar and results */
+      width: 50%;
     }
     #acronymList dl {
-      display: none; /* Hide all acronyms initially */
+      display: none; /* Ensures acronyms are hidden by default */
+      text-align: center;
     }
     .content {
-      text-align: center;
       position: relative;
       z-index: 1;
     }
@@ -47,44 +46,37 @@
 
 <div class="content">
   <div class="search-container">
-    <input type="text" id="searchBar" onkeyup="searchAcronym()" placeholder="Search for acronyms...">
+    <input type="text" id="searchBar" placeholder="Search for acronyms...">
   </div>
   <div id="acronymList">
     <dl>
       <dt>API</dt>
       <dd>Application Programming Interface</dd>
-      <!-- More acronym-definition pairs can be added here -->
     </dl>
   </div>
 </div>
 
 <script>
-function searchAcronym() {
-  let input = document.getElementById('searchBar');
-  let filter = input.value.toUpperCase();
-  let dl = document.getElementById("acronymList");
-  let dt = dl.getElementsByTagName("dt");
-  let found = false; // Flag to track if any matches are found
+document.getElementById('searchBar').addEventListener('input', function() {
+  var filter = this.value.toUpperCase();
+  var dl = document.getElementById("acronymList");
+  var dt = dl.getElementsByTagName("dt");
+  var found = false;
 
-  for (let i = 0; i < dt.length; i++) {
-    let dd = dt[i].nextElementSibling; // The DD element following the DT
-    let dtText = dt[i].textContent || dt[i].innerText;
-    let ddText = dd.textContent || dd.innerText;
-
-    // Check if the current DT or DD text includes the filter text
-    if (dtText.toUpperCase().indexOf(filter) > -1 || ddText.toUpperCase().indexOf(filter) > -1) {
+  for (var i = 0; i < dt.length; i++) {
+    var dd = dt[i].nextElementSibling;
+    if (dt[i].textContent.toUpperCase().includes(filter) || dd.textContent.toUpperCase().includes(filter)) {
       dt[i].style.display = "";
       dd.style.display = "";
-      found = true; // At least one match found
+      found = true;
     } else {
       dt[i].style.display = "none";
       dd.style.display = "none";
     }
   }
 
-  // If no matches are found, ensure the DL is hidden, else show it
   dl.style.display = found ? "block" : "none";
-}
+});
 </script>
 
 </body>
