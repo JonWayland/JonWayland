@@ -178,6 +178,47 @@
       border-radius: 3px;
     }
     
+    #popup {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #popup-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      position: relative;
+      width: 80%;
+      max-width: 600px;
+    }
+    
+    #popup-content span {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 25px;
+    }
+    
+    #popup-content a {
+      color: #0077cc; /* Change this color to whatever you prefer */
+      text-decoration: underline; /* This underlines the link */
+      font-weight: bold; /* Optional: makes the text bold */
+    }
+    
+    #popup-content a:hover {
+      color: #005299; /* Darker shade of blue for better contrast on hover */
+    }
+
+
+
   </style>
 </head>
 <body>
@@ -193,7 +234,8 @@
       <a href="#about-me">About Me</a>
       <a href="#presentations">Presentations</a>
       <a href="#concepts">Storytelling</a>
-      <!--<a href="consulting.html">Consulting</a> -->
+      <!--<a href="consulting.html">Consulting</a>-->
+      <a href="javascript:void(0);" onclick="openPopup()">Consulting</a>
       <!--<a href="blog.html">Blog</a> -->
       <!--<a href="javascript:void(0);" onclick="toggleSearch()"><i class="fas fa-search"></i></a>-->
       <input type="text" id="searchInput" placeholder="Search...">
@@ -304,6 +346,15 @@
       <p>&copy; 2023 All rights reserved.</p>
     </footer>
   </section>
+
+
+  <div id="popup" style="display:none;">
+    <div id="popup-content">
+      <span onclick="closePopup()" style="cursor:pointer;">&times;</span>
+      <h2>Assessing Data Science Skills</h2>
+      <p>I specialize in creating tailored fictional datasets for data science candidates, designing comprehensive take-home projects and evaluation rubrics to streamline your hiring process. Let me help you assess technical skills effectively and efficiently. If you're interested, please <a href="mailto:jonwayland47@gmail.com">email me</a>.</p>
+    </div>
+  </div>
 
 
 <script src="js/script.js"></script>
