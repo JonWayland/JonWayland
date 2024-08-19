@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> AI Consulting Services | Jon Wayland </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: url('https://media.licdn.com/dms/image/v2/D4E16AQF9RcRohnR4EA/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1715288119496?e=1729728000&v=beta&t=Hgy435pq71xVQcBHY8svUmWq28JzkpqyNTE83Kpshzw') no-repeat center center/cover;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 51, 102, 0.6); /* Dark overlay */
+            z-index: 1;
+        }
+
+        header h1, header p {
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3.5em;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #003366;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .section p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #00509e;
+        }
+
+        .service-card p {
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .cta {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .cta a {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #00509e;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta a:hover {
+            background-color: #003366;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>AI Consulting Services</h1>
+        <p><b>Jon Wayland</b></p>
+        <p>Empowering Businesses with Data Science & AI Solutions</p>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <h2>My Background</h2>
+            <p>I am a seasoned data scientist with a decade of experience in the field, currently serving as the Sr. Director of Data Science at a large health insurance company. My expertise lies in creating fictional datasets reflective of real-world data, scraping and structuring publicly available data, automating tasks for small teams, and providing strategic advice on how businesses can integrate and leverage AI to become smarter and more modern.</p>
+        </div>
+
+        <div class="section">
+            <h2>My Services</h2>
+            <div class="services">
+                <div class="service-card">
+                    <h3>Fictional Dataset Creation</h3>
+                    <p>Custom datasets that simulate real-world data, allowing you to vet potential candidates for data analytics roles without risking proprietary information.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Data Scraping & Structuring</h3>
+                    <p>Collecting and organizing publicly available data relevant to your industry, helping you uncover hidden correlations and insights.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Task Automation for Small Teams</h3>
+                    <p>Automating mundane data tasks, particularly for teams relying on Excel, to increase efficiency and reduce errors.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Machine Learning Development</h3>
+                    <p>Creating custom machine learning models to predict outcomes specific to your business.</p>
+                </div>
+                <div class="service-card">
+                    <h3>AI Strategy Consulting</h3>
+                    <p>Providing expert guidance to small and medium-sized businesses on how to integrate and leverage AI, helping them become smarter, more efficient, and more competitive in the modern market.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Data Science Best Practices</h3>
+                    <p>Helping to establish the best practices, including but not limited to team structure, roles and responsibilities, and product integration for existing data science teams.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Why Me?</h2>
+            <p>I excel at asking the right questions and translating complex technical solutions into clear, understandable terms, ensuring the rapid delivery of high-quality results. And I do it all with cost-effectiveness in mind.</p>
+            
+            <p>My expertise lies in the healthcare domain, but I am fully equipped and ready to collaborate with companies across a wide range of industries.</p>
+        </div>
+
+        <div class="cta">
+            <a href="mailto:jonwayland47@gmail.com">Get in Touch</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 | JonWayland.com | All Rights Reserved.</p>
+    </footer>
+
+</body>
+
+</html>
