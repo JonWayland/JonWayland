@@ -198,6 +198,15 @@
             background-color: #003366;
         }
 
+        /* Success message */
+        .success-message {
+            display: none;
+            font-size: 1.2em;
+            color: green;
+            text-align: center;
+            margin-top: 20px;
+        }
+
         footer {
             background-color: #003366;
             color: white;
@@ -274,12 +283,13 @@
         <div class="popup-content">
             <span class="close" onclick="closePopup()">&times;</span>
             <h2>Contact Me</h2>
-            <form action="https://formspree.io/f/mzzpaaly" method="POST">
+            <form id="contactForm" method="POST">
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="email" placeholder="Your Email" required>
                 <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
                 <button type="submit">Send Message</button>
             </form>
+            <div class="success-message" id="successMessage">Thanks, your form was submitted successfully!</div>
         </div>
     </div>
 
@@ -294,7 +304,33 @@
 
         function closePopup() {
             document.getElementById("contactPopup").style.display = "none";
+            document.getElementById("contactForm").reset();  // Reset form after closing
+            document.getElementById("successMessage").style.display = "none"; // Hide success message
         }
+
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(this);
+            const actionUrl = "https://formspree.io/f/mzzpaaly"; // Replace with your Formspree URL
+
+            fetch(actionUrl, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById("successMessage").style.display = "block";
+                    this.reset(); // Clear the form fields
+                } else {
+                    alert("There was a problem submitting your form. Please try again.");
+                }
+            }).catch(error => {
+                alert("There was a problem submitting your form. Please try again.");
+            });
+        });
     </script>
 
 </body>
